@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Task Manager</title>
+
+<style>
+body{
+    font-family: Arial;
+    background:#f4f4f4;
+    padding:20px;
+}
+.container{
+    max-width:700px;
+    margin:auto;
+    background:white;
+    padding:20px;
+    border-radius:10px;
+}
+input,select,button{
+    width:100%;
+    padding:10px;
+    margin:8px 0;
+    box-sizing:border-box;
+}
+button{
+    background:blue;
+    color:white;
+    border:none;
+}
+.task-card{
+    border:1px solid #ccc;
+    padding:10px;
+    margin-top:10px;
+}
+</style>
+</head>
+<body>
+
+<div class="container">
+<h1>Task Manager</h1>
+
+<input type="text" id="name" placeholder="Task Name">
+<input type="text" id="description" placeholder="Description">
+<input type="text" id="assignedTo" placeholder="Assigned To">
+<input type="date" id="dueDate">
+
+<select id="status">
+<option value="">Select Status</option>
+<option>TODO</option>
+<option>IN PROGRESS</option>
+<option>DONE</option>
+</select>
+
+<button onclick="saveTask()">Save</button>
+
+<div id="tasksList"></div>
+</div>
+
+<script>
+let tasks = JSON.parse(localStorage.getItem("tasks")) || [];
+
+function saveTask(){
+    let name = document.getElementById("name").value;
+    let description = document.getElementById("description").value;
+    let assignedTo = document.getElementById("assignedTo").value;
+    let dueDate = document.getElementById("dueDate").value;
+    let status = document.getElementById("status").value;
+
+    if(name=="" || description=="" || assignedTo=="" || dueDate=="" || status==""){
+        alert("Fill all fields");
+        return;
+    }
+
+    let task = {
+        id: Date.now(),
+        name:name,
+        description:description,
+        assignedTo:assignedTo,
+        dueDate:dueDate,
+        status:status
+    };
+
+    tasks.push(task);
+    localStorage.setItem("tasks", JSON.stringify(tasks));
+    displayTasks();
+}
+
+function displayTasks(){
+    let tasksList = document.getElementById("tasksList");
+    tasksList.innerHTML = "";
+
+    tasks.forEach(function(task){
+        tasksList.innerHTML += `
+        <div class="task-card">
+            <h3>${task.name}</h3>
+            <p>${task.description}</p>
+            <p>${task.assignedTo}</p>
+            <p>${task.dueDate}</p>
+            <p>${task.status}</p>
+        </div>
+        `;
+    });
+}
+
+displayTasks();
+</script>
+
+</body>
+</html>
