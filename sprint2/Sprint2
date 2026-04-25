@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Task Priority</title>
+
+  <style>
+    body {
+      font-family: Arial;
+    }
+
+    .task-card {
+      width: 300px;
+      padding: 15px;
+      margin: 20px auto;
+      border: 1px solid #ccc;
+      background-color: white;
+      transition: 0.3s ease;
+      border-radius: 8px;
+    }
+
+    /* URGENT style */
+    .task-card.urgent {
+      background-color: red;
+      color: white;
+    }
+
+    select {
+      padding: 5px;
+      width: 100%;
+      margin-top: 10px;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="task-card" id="taskCard">
+    <h3>My Task</h3>
+    <p>Set Priority Level:</p>
+
+    <select id="prioritySelect">
+      <option value="LOW">LOW</option>
+      <option value="MEDIUM">MEDIUM</option>
+      <option value="URGENT">URGENT</option>
+    </select>
+  </div>
+
+  <script>
+    const select = document.getElementById("prioritySelect");
+    const card = document.getElementById("taskCard");
+
+    select.addEventListener("change", function () {
+      const value = this.value;
+
+      // always reset first
+      card.classList.remove("urgent");
+
+      // only urgent case apply style
+      if (value === "URGENT") {
+        card.classList.add("urgent");
+      }
+    });
+  </script>
+
+</body>
+</html>
