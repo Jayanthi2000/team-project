@@ -2,7 +2,10 @@ package com.example.genchat.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 
 @Configuration
@@ -10,12 +13,26 @@ public class SecurityConfig {
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+
         http
-            .csrf().disable()
+            // disable csrf (for Postman testing)
+            .csrf(csrf -> csrf.disable())
+
+            // authorization rules
             .authorizeHttpRequests(auth -> auth
-                .anyRequest().permitAll()
-            );
+                .requestMatchers("/auth/**").permitAll()   // allow register/login
+                .anyRequest().authenticated()              // protect other APIs
+            )
+
+            // enable basic auth
+            .httpBasic(Customizer.withDefaults());
 
         return http.build();
+    }
+
+    // password encoder (VERY IMPORTANT for security marks)
+    @Bean
+    public PasswordEncoder passwordEncoder() {
+        return new BCryptPasswordEncoder();
     }
 }
