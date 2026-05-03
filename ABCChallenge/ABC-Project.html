@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>ABCs Project</title>
+  <style>
+    body {
+      font-family: Arial;
+      text-align: center;
+      background: #f4f4f4;
+    }
+    h1 {
+      color: #333;
+    }
+    .container {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+      padding: 20px;
+    }
+    .card {
+      background: white;
+      padding: 10px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+    img {
+      width: 100%;
+      height: 150px;
+      object-fit: cover;
+      border-radius: 10px;
+    }
+  </style>
+</head>
+
+<body>
+
+<h1>ABCs Project</h1>
+
+<div class="container" id="abcContainer"></div>
+
+<script>
+  const data = [
+    { letter: "A", word: "Apple", img: "Apple.jpg" },
+    { letter: "B", word: "Ball", img: "ball.jpg" },
+    { letter: "C", word: "Cat", img: "Cat.jpg" }
+  ];
+
+  const container = document.getElementById("abcContainer");
+
+  data.forEach(item => {
+    const card = document.createElement("div");
+    card.className = "card";
+
+    card.innerHTML = `
+      <h2>${item.letter} - ${item.word}</h2>
+      <img src="${item.img}" alt="${item.word}">
+    `;
+
+    container.appendChild(card);
+  });
+</script>
+
+</body>
+</html>
