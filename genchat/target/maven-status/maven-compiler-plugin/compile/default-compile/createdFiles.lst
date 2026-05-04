@@ -1,0 +1,11 @@
+com\example\genchat\repository\MessageRepository.class
+com\example\genchat\model\Message.class
+com\example\genchat\service\MessageService.class
+com\example\genchat\service\UserService.class
+com\example\genchat\model\User.class
+com\example\genchat\repository\UserRepository.class
+com\example\genchat\controller\MessageController.class
+com\example\genchat\controller\AuthController.class
+com\example\genchat\config\SecurityConfig.class
+com\example\genchat\GenchatApplication.class
+com\example\genchat\controller\HomeController.class
